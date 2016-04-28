@@ -194,16 +194,13 @@ The Wordpress install process will lead you through setting up the blog.
 <a name="Delete-the-Project"></a>
 ## Delete the Project
 
-After customizing your blog let's try deleting & restoring the entire project.
+After customizing your blog let's try deleting & restoring the entire project. 
+
+Note: if a persistent volume persistentVolumeReclaimPolicy set to `Recycle` instead of `Retain` then deleting the project will automatically delete data on the persistent volumes. If volumes are set to `Recycle`, data on the volumes should be backed up manually before deleting a project. Otherwise run `oc edit pv <pv-name>` to make adjustments.
 
 ```
 oc delete project/project-alpha
 ```
-
-<a name="Manually-Scrub-the-Persistent-Volumes"></a>
-## Manually Scrub the Persistent Volumes
-
-(adding details)
 
 <a name="Restore-the-Project"></a>
 ## Restore the Project
@@ -225,6 +222,8 @@ NAME          STATUS    VOLUME    CAPACITY   ACCESSMODES   AGE
 claim-mysql   Bound     pv0002    5Gi        RWO           17s
 claim-wp      Bound     pv0001    1Gi        RWO,RWX       28s
 ```
+
+Note: if you are working with extra volumes and the pvc does not bind to the intended pv, please note that improvements are coming in this arena ([https://github.com/kubernetes/kubernetes/pull/24682](https://github.com/kubernetes/kubernetes/pull/24682)). In the mean time, copy your data to the bound volume.
 
 Launch the MySQL and WordPress pods and services.
 
@@ -248,15 +247,12 @@ mysql        1/1             Running       0          26m
 wordpress    1/1             Running       2          4m
 ```
 
+(Getting close, WordPress is starting - but MySQL is tripping on a read/write error.)
+
 <a name="Restart-the-Blog"></a>
 ## Restart the Blog
 
-In your browser, visit 172.30.170.55:5055 (your IP address will vary).
+In your browser, visit the address for wpfrontend or create a route with the web console.
 
 The Wordpress site should look how you left it.
 
-
-#### Note
-
-Binding pvc to pv by volumeName is still being refined:
-[https://github.com/kubernetes/kubernetes/pull/24682](https://github.com/kubernetes/kubernetes/pull/24682)
