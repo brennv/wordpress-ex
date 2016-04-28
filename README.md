@@ -1,7 +1,16 @@
 # wordpress-ex
 
-This is a set of configuration files that work with OpenShift 3 to create a wordpress application.
+This is a set of configuration files that work with OpenShift 3 to create a wordpress application, and follow-on steps to demonstrate the use of persistent volumes.
 
+- [Getting Started](#Getting-Started)
+- [Create a WordPress Project](#Create-a-WordPress-Project)
+- [Start Blogging](#Start-Blogging)
+- [Delete the Project](#Delete-the-Project)
+- [Manually Scrub the Persistent Volumes](#Manually-Scrub-the-Persistent-Volumes)
+- [Restore the Project](#Restore-the-Project)
+- [Restart the Blog](#Restart-the-Blog)
+
+<a name="Getting-Started"></a>
 ## Getting Started
 
 ### Storage Provisioning Using NFS Persistent Volumes
@@ -62,7 +71,7 @@ pv0002    <none>    5368709120   RWO           Available
 
 ```
 
-Now the volumes are ready to be used by applications in the cluster.
+Now the volumes are ready to be used by applications in the cluster. Fore more information on the lifecycle of persistent volumes read the [recycling policy](http://kubernetes.io/docs/user-guide/persistent-volumes/#recycling-policy).
 
 ### Adjusting Security Constraints for Third-Party Docker Images
 
@@ -175,19 +184,29 @@ mysql        1/1             Running       0          26m
 wordpress    1/1             Running       2          4m
 ```
 
+<a name="Start-Blogging"></a>
 ## Start Blogging
 
 In your browser, visit 172.30.170.55:5055 (your IP address will vary, depending on your set-up you may need to create a route -- this can be done in the OpenShift web console).
 
 The Wordpress install process will lead you through setting up the blog.
 
-## Delete and Restore the Project
+<a name="Delete-the-Project"></a>
+## Delete the Project
 
 After customizing your blog let's try deleting & restoring the entire project.
 
 ```
 oc delete project/project-alpha
 ```
+
+<a name="Manually-Scrub-the-Persistent-Volumes"></a>
+## Manually Scrub the Persistent Volumes
+
+(adding details)
+
+<a name="Restore-the-Project"></a>
+## Restore the Project
 
 Create a new project, repeating steps from above.
 
@@ -229,8 +248,15 @@ mysql        1/1             Running       0          26m
 wordpress    1/1             Running       2          4m
 ```
 
-## Check the Blog
+<a name="Restart-the-Blog"></a>
+## Restart the Blog
 
 In your browser, visit 172.30.170.55:5055 (your IP address will vary).
 
 The Wordpress site should look how you left it.
+
+
+#### Note
+
+Binding pvc to pv by volumeName is still being refined:
+[https://github.com/kubernetes/kubernetes/pull/24682](https://github.com/kubernetes/kubernetes/pull/24682)
