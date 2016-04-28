@@ -1,6 +1,6 @@
 # wordpress-ex
 
-This is a set of configuration files that work with OpenShift 3 to create a wordpress application, and follow-on steps to demonstrate the use of persistent volumes.
+This is a set of configuration files adapted from [OpenShift/origin examples](https://github.com/openshift/origin/tree/master/examples) that work with OpenShift 3 to create a wordpress application, and follow-on steps to demonstrate the use of persistent volumes.
 
 - [Getting Started](#Getting-Started)
 - [Create a WordPress Project](#Create-a-WordPress-Project)
