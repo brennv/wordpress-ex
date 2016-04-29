@@ -6,7 +6,6 @@ This is a set of configuration files adapted from [OpenShift/origin examples](ht
 - [Create a WordPress Project](#Create-a-WordPress-Project)
 - [Start Blogging](#Start-Blogging)
 - [Delete the Project](#Delete-the-Project)
-- [Manually Scrub the Persistent Volumes](#Manually-Scrub-the-Persistent-Volumes)
 - [Restore the Project](#Restore-the-Project)
 - [Restart the Blog](#Restart-the-Blog)
 
@@ -244,10 +243,8 @@ mysql        172.30.115.137  <none>        3306/TCP   7m
 wpfrontend   172.30.170.55                 5055/TCP   4m
 NAME         READY           STATUS        RESTARTS   AGE
 mysql        1/1             Running       0          26m
-wordpress    1/1             Running       2          4m
+wordpress    1/1             Running       0          4m
 ```
-
-(Getting close, WordPress is starting - but MySQL is tripping on a read/write error.)
 
 <a name="Restart-the-Blog"></a>
 ## Restart the Blog
